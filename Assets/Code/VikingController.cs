@@ -74,7 +74,7 @@ public class VikingController : MonoBehaviour
     private void OnRotate(InputAction.CallbackContext context)
     {
         if (!isAlive) return;
-        
+
         if (!_canRotate)
         {
             if (_entryAngle == _targetAngle)
@@ -87,7 +87,7 @@ public class VikingController : MonoBehaviour
         {
             _rotateInput = context.ReadValue<Vector2>();
             _canRotate = false;
-        
+
             Rotate();
         }
     }
@@ -115,14 +115,14 @@ public class VikingController : MonoBehaviour
         _targetAngle = 0f;
         _entryAngle = 0.1f;
     }
+
     private void HandleRotate()
     {
         if (CheckRotation())
         {
             _characterController.transform.rotation = Quaternion.Slerp(transform.rotation,
-                            Quaternion.Euler(0, _targetAngle, 0), 15f * Time.deltaTime);
+                Quaternion.Euler(0, _targetAngle, 0), 15f * Time.deltaTime);
         }
-            
     }
 
     private bool CheckRotation()
@@ -144,7 +144,7 @@ public class VikingController : MonoBehaviour
         if (!isAlive) return;
         _isJumpPressed = context.ReadValueAsButton();
     }
-    
+
 
     private void HandleJump()
     {
@@ -195,51 +195,60 @@ public class VikingController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (transform.position.y <= -5)
-        {
-            _isDrop = true;
-            Die();
-        }
-
-        //Handle Rotation
-        HandleRotate();
-        HandleGravity();
         if (!_isStart)
         {
-            if (_currentMovement.z != 0)
+            if (_currentMovement.z == 0)
             {
-                _animator.SetBool("isRun",true);
+                _animator.SetBool("isRun", false);
+            }
+            else
+            {
+                _animator.SetBool("isRun", true);
+                if (!_animator.GetBool("isRun"))
+                {
+                    Debug.Log("false");
+                }
                 _characterController.Move(speed * Time.deltaTime * transform.forward);
-            }else
-            {
-                _animator.SetBool("isRun",false);
             }
 
             _canRotate = true;
         }
         else
         {
-            _animator.SetBool("isRun",true);
+            _animator.SetBool("isRun", true);
             _characterController.Move(speed * Time.deltaTime * transform.forward);
         }
-        
+
+        if (transform.position.y <= -5)
+        {
+            _isDrop = true;
+            Die();
+        }
+
+        HandleRotate();
+        HandleGravity();
+
+
         _characterController.Move(speed * Time.deltaTime * new Vector2(0, _currentMovement.y));
+        if(!_characterController.isGrounded && !_isDrop) _animator.SetBool("isjump",true);
+        else _animator.SetBool("isjump",false);
+        
         if (_currentMovement.x > 0)
         {
+            if(!_animator.GetBool("isRun")) _animator.SetBool("isRun", true);
             _characterController.Move(horizontalSpeed * Time.deltaTime * transform.right);
-            _animator.SetBool("isRun",true);
         }
         else if (_currentMovement.x < 0)
         {
+            if(!_animator.GetBool("isRun")) _animator.SetBool("isRun", true);
             _characterController.Move(horizontalSpeed * Time.deltaTime * transform.right * (-1));
-            _animator.SetBool("isRun",true);
         }
-        else if(_currentMovement.x == 0 && !_isStart)
+        else if (_currentMovement.x == 0 && _currentMovement.z == 0 && !_isStart)
         {
-            _animator.SetBool("isRun",false);
+            _animator.SetBool("isRun", false);
         }
-            
-        
+
+
         HandleJump();
     }
 }

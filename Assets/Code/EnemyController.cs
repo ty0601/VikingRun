@@ -16,8 +16,6 @@ public class EnemyController : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-        if (!_animator.isInitialized)
-            _animator.Rebind();
         _character = gameObject.GetComponent<CharacterController>();
         _vikingController = GameObject.FindObjectOfType<VikingController>();
     }
@@ -32,7 +30,6 @@ public class EnemyController : MonoBehaviour
     {
         if (!_vikingController._isStart)
         {
-            _animator.SetBool("isRun", false);
             _speed = 0;
         }
         else if (Vector3.Distance(_vikingController.transform.position, transform.position) <= 5 ||
@@ -51,11 +48,13 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
+            // transform.Rotate(transform.rotation.x * (-1) * 10f * Time.deltaTime,0,0);
             _animator.SetBool("isRun", true);
             if (_shouldRotate)
             {
                 _shouldRotate = false;
-                transform.Rotate(0, _vikingController.transform.eulerAngles.y - transform.eulerAngles.y, 0);
+                transform.LookAt(_vikingController.transform);
+                transform.rotation = Quaternion.Euler(0,transform.eulerAngles.y,transform.eulerAngles.z);
             }
 
             if (Vector3.Distance(_vikingController.transform.position, transform.position) >= 25)
@@ -68,7 +67,7 @@ public class EnemyController : MonoBehaviour
             }
         }
 
-
+        
         _character.Move(transform.forward * Time.deltaTime * _speed);
     }
 }
