@@ -18,5 +18,5 @@ A Viking tracing another Viking Game
 'e' ==> 右轉90°\
 'space' ==> 跳躍
 
-#背景音樂
+# 背景音樂
 使用的是package裡的candy
