@@ -23,7 +23,6 @@ public class VikingController : MonoBehaviour
     //jump variable
     private bool _isJumpPressed = false;
     private float _initialJumpVelocity = 2.5f;
-    private float _maxJumpHeight = 0.5f;
     private bool _isJumping = false;
 
     //player rotate variables
