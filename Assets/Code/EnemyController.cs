@@ -11,8 +11,7 @@ public class EnemyController : MonoBehaviour
     private VikingController _vikingController;
     public bool _shouldRotate;
     private float _speed = 0f;
-
-
+    
     private void Awake()
     {
         _animator = GetComponent<Animator>();
