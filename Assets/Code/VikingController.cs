@@ -190,12 +190,13 @@ public class VikingController : MonoBehaviour
     {
         _playerInput.CharactorController.Disable();
     }
-
+    
     // Update is called once per frame
     private void Update()
     {
         if (!_isStart)
         {
+            if(transform.position.y < -2)  SceneManager.LoadScene(1);
             if (_currentMovement.z == 0)
             {
                 _animator.SetBool("isRun", false);
@@ -203,10 +204,6 @@ public class VikingController : MonoBehaviour
             else
             {
                 _animator.SetBool("isRun", true);
-                if (!_animator.GetBool("isRun"))
-                {
-                    Debug.Log("false");
-                }
                 _characterController.Move(speed * Time.deltaTime * transform.forward);
             }
 
@@ -226,7 +223,6 @@ public class VikingController : MonoBehaviour
 
         HandleRotate();
         HandleGravity();
-
 
         _characterController.Move(speed * Time.deltaTime * new Vector2(0, _currentMovement.y));
         if(!_characterController.isGrounded && !_isDrop) _animator.SetBool("isjump",true);
