@@ -21,7 +21,7 @@
 使用的是package裡的candy imperium的音效
 
 ## 使用環境
-Unity 2020.3.24f1
+Unity 2020.3.24f1  Rider 2021 3.2
 
 ## git
 https://github.com/ty0601/VikingRun
