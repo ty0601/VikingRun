@@ -23,22 +23,15 @@
 ## 遊戲場景
 ### Menu
 ![image](https://github.com/ty0601/VikingRun/assets/71759327/ac53e479-8515-4226-95e0-2120540e989e)
-
 ### 遊戲場景
 ![image](https://github.com/ty0601/VikingRun/assets/71759327/c50c2223-0b9a-416d-9326-558aa07c2010)
-
 ### Help
 ![image](https://github.com/ty0601/VikingRun/assets/71759327/8132f4c9-d5ce-4e6c-b505-56f309fb9056)
-
-
 
 ## 使用環境
 Unity 2020.3.24f1  Rider 2021 3.2
 
-## git
-https://github.com/ty0601/VikingRun
 
-## 回饋
-作業量雖然很大，每次都花超久時間去做，不過做完後還是學到很多東西
+
 
 
